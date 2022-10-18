@@ -35,10 +35,11 @@
 <br>
 
 ## 3. 담당한 파트
-- 회원 정보 수정 및 삭제 기능 구현
-- 페이지 전환 기능 구현
-- 메뉴에 따른 창 전환 기능 구현
-- 마이페이지 프론트단 구현
+- 마이페이지
+  - 회원 정보 수정 및 삭제 기능 구현
+  - 페이지 전환 기능 구현
+  - 메뉴에 따른 창 전환 기능 구현
+  - 마이페이지 프론트단 구현
 - 프로젝트 발표
 
 <br>
@@ -68,76 +69,227 @@
 
 ![image](https://user-images.githubusercontent.com/100775231/196438761-8242bd14-ca5b-4558-9968-8bce669e0505.png)
 
+<br>
+
 ## 6. 화면 구성 및 기능
-
-(예시 : 
-## 4. 핵심 기능
-이 서비스의 핵심 기능은 컨텐츠 등록 기능입니다.  
-사용자는 단지 컨텐츠의 카테고리를 선택하고, URL만 입력하면 끝입니다.  
-이 단순한 기능의 흐름을 보면, 서비스가 어떻게 동작하는지 알 수 있습니다.  
-
+### 6-1. 메인 페이지
 <details>
-<summary><b>핵심 기능 설명 펼치기</b></summary>
+<summary><b>메인화면 구성 상세보기</b></summary>
 <div markdown="1">
-
-### 4.1. 전체 흐름
-![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow1.png)
-
-### 4.2. 사용자 요청
-![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_vue.png)
-
-- **URL 정규식 체크** :pushpin: [코드 확인](https://github.com/Integerous/goQuality/blob/b587bbff4dce02e3bec4f4787151a9b6fa326319/frontend/src/components/PostInput.vue#L67)
-  - Vue.js로 렌더링된 화면단에서, 사용자가 등록을 시도한 URL의 모양새를 정규식으로 확인합니다.
-  - URL의 모양새가 아닌 경우, 에러 메세지를 띄웁니다.
-
-- **Axios 비동기 요청** :pushpin: [코드 확인]()
-  - URL의 모양새인 경우, 컨텐츠를 등록하는 POST 요청을 비동기로 날립니다.
-
-### 4.3. Controller
-
-![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_controller.png)
-
-- **요청 처리** :pushpin: [코드 확인](https://github.com/Integerous/goQuality/blob/b2c5e60761b6308f14eebe98ccdb1949de6c4b99/src/main/java/goQuality/integerous/controller/PostRestController.java#L55)
-  - Controller에서는 요청을 화면단에서 넘어온 요청을 받고, Service 계층에 로직 처리를 위임합니다.
-
-- **결과 응답** :pushpin: [코드 확인]()
-  - Service 계층에서 넘어온 로직 처리 결과(메세지)를 화면단에 응답해줍니다.
-
-### 4.4. Service
-
-![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_service1.png)
-
-- **Http 프로토콜 추가 및 trim()** :pushpin: [코드 확인]()
-  - 사용자가 URL 입력 시 Http 프로토콜을 생략하거나 공백을 넣은 경우,  
-  올바른 URL이 될 수 있도록 Http 프로토콜을 추가해주고, 공백을 제거해줍니다.
-
-- **URL 접속 확인** :pushpin: [코드 확인]()
-  - 화면단에서 모양새만 확인한 URL이 실제 리소스로 연결되는지 HttpUrlConnection으로 테스트합니다.
-  - 이 때, 빠른 응답을 위해 Request Method를 GET이 아닌 HEAD를 사용했습니다.
-  - (HEAD 메소드는 GET 메소드의 응답 결과의 Body는 가져오지 않고, Header만 확인하기 때문에 GET 메소드에 비해 응답속도가 빠릅니다.)
-
-  ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_service2.png)
-
-- **Jsoup 이미지, 제목 파싱** :pushpin: [코드 확인]()
-  - URL 접속 확인결과 유효하면 Jsoup을 사용해서 입력된 URL의 이미지와 제목을 파싱합니다.
-  - 이미지는 Open Graphic Tag를 우선적으로 파싱하고, 없을 경우 첫 번째 이미지와 제목을 파싱합니다.
-  - 컨텐츠에 이미지가 없을 경우, 미리 설정해둔 기본 이미지를 사용하고, 제목이 없을 경우 생략합니다.
-
-
-### 4.5. Repository
-
-![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_repo.png)
-
-- **컨텐츠 저장** :pushpin: [코드 확인]()
-  - URL 유효성 체크와 이미지, 제목 파싱이 끝난 컨텐츠는 DB에 저장합니다.
-  - 저장된 컨텐츠는 다시 Repository - Service - Controller를 거쳐 화면단에 송출됩니다.
-
+  
+  <br>
+  
+  ![image](https://user-images.githubusercontent.com/100775231/196492086-a0666523-2146-4441-95a7-9fb7c7396f67.png)
+  
+  ![image](https://user-images.githubusercontent.com/100775231/196496356-feba2219-ddc4-4202-975a-02e9846182d6.png)
+  
+  ![image](https://user-images.githubusercontent.com/100775231/196492637-f48d1c50-62f6-4370-a0ad-a3b98db09137.png)
+  
+- 캐러셀을 사용하여 이미지 슬라이드 기능 구현 (3장의 사진 사용) : 📌 [코드 확인]()
+- 로그인 시 JSTL 조건문을 통해 username을 받아 표시되도록 구현
+- 비로그인 시, 사용 제한 기능 구현
+- 여행지 검색 시, 검색 결과가 동적으로 변하도록 구현
+- 모든 페이지에 헤더 및 푸터 연결  
 </div>
 </details>
 
-</br>
+### 6-2. 로그인 & 비밀번호 찾기 페이지
+<details>
+<summary><b>핵심 기능</b></summary>
+<div markdown="1">
+  
+  <br>
+  
+  ![login-min](https://user-images.githubusercontent.com/100775231/196504597-b732940a-1788-4840-a9d0-4b13fea74b6e.gif)
+  
+  ![image](https://user-images.githubusercontent.com/100775231/196500429-cd4a7c40-3160-4b16-9ce9-f233b4428334.png)
+  
+  - 로그인
+    - header에 로그인 버튼 클릭 시, 모달창으로 로그인 페이지 구현
+    - 로그인 성공 시, session에 회원 정보가 저장되어 로그인이 유지되도록 구현 → header에 사용자 이름이 표시되도록 구현
+    - 회원 정보가 틀렸을 때, alert으로 안내문구 출력
+  
+  <br>
+  
+  ![image](https://user-images.githubusercontent.com/100775231/196500533-9950c1cf-52f4-418f-81dd-c2d65505e5a2.png)
+  
+  - 비밀번호 찾기
+    - DB에 저장된 이메일과 이름으로 회원 정보 확인 후, 이메일로 임시 비밀번호 전송 기능 구현  
+</div>
+</details>
 
-## 5. 핵심 트러블 슈팅
+### 6-3. 회원가입 페이지
+<details>
+<summary><b>핵심 기능</b></summary>
+<div markdown="1">
+  
+  <br>
+  
+  ![image](https://user-images.githubusercontent.com/100775231/196507219-e165d7b3-1ab6-4dd2-946b-87a13563ac7f.png)
+  
+  - 정규 표현식을 사용하여 회원 정보의 유효성검사를 진행하도록 구현
+</div>
+</details>
+
+### 6-4. 마이 페이지
+<details>
+<summary><b>핵심 기능</b></summary>
+<div markdown="1">
+  
+  <br>
+  
+  ![image](https://user-images.githubusercontent.com/100775231/196507975-c6c7b705-6053-4299-a7ba-6bedc41d5fb8.png)
+  
+  ![image](https://user-images.githubusercontent.com/100775231/196508037-3bf8ad2a-ec8e-4af8-b41c-f77c65b5b064.png)
+  
+  - DB에서 데이터를 가져와 회원 정보가 나오도록 구현
+  - 회원 수정 및 탈퇴를 할 수 있도록 구현하였으며 변경된 사항은 DB에 저장되도록 구현
+  - 메뉴를 누르면 페이지 전환이 아닌 각 메뉴의 창으로 전환하도록 구현 : 📌 [코드 확인]()
+  - 홈으로 버튼 클릭시 메인 메뉴 페이지로 전환되도록 구현
+</div>
+</details>
+
+### 6-5. 일정 만들기 페이지
+<details>
+<summary><b>핵심 기능</b></summary>
+<div markdown="1">
+  
+  <br>
+  
+  ![image](https://user-images.githubusercontent.com/100775231/196512420-b3bdc367-8755-4e33-860d-08893d9a820c.png)
+  
+  - 메인페이지에서 선택한 여행지를 지도 API에 띄우고, 한국관광공사 API를 통해 가져온 추천 여행지를 목록 및 지도 위에 보여준다.
+  - 여행 날짜 입력 시, 일 수 만큼 좌측에 DAY가 생성되고, DAY마다 여행지 설정 가능
+  - 각 DAY는 서로 독립적
+  
+  <br>
+  
+  👉 핵심 코드
+  > ### 한국 관광 공사 API를 이용해 받아온 JSON 형식의 데이터를 테이블에 INSERT 하기
+  > - API를 통해 JSON 형식으로 받아온 데이터 중 필요한 정보를 추려 LIST 객체에 담아 Parameter로 넘긴다.
+  > - 넘어온 데이터를 DB 테이블과 동일한 순서와 타입으로 세팅해 INSERT 한다. (MVC2 방법 사용)
+  
+  <br>
+  
+  > tourist.js : 📌 [코드 확인]()
+  
+  ```javascript
+  
+  $(function(){
+	getJson();
+});
+
+// json을 읽어오는 함수
+function getJson() {
+	// Seoul.json에서 데이터를 가져옴 -> function(data)로 처리 -> data에 저장
+	$.getJSON("areaBasedList.json", function(data) {
+		$.each(data, function(key, val) {
+			if( key == "SID" ) {
+				$("table").attr("border", "1");
+				
+				// API에서 받아 올 데이터들
+				$("thead").append(
+					"<tr>"+
+						"<th>"+val.ADDR1+"</th>"+	
+						"<th>"+val.AREACODE+"</th>"+	
+						"<th>"+val.SIGUNGUCODE+"</th>"+
+						"<th>"+val.FIRSTIMAGE2+"</th>"+	
+						"<th>"+val.READCOUNT+"</th>"+	
+						"<th>"+val.TITLE+"</th>"+	
+					"</tr>"
+				);
+			} else {
+				var list = val;		// list 변수 : 배열로 정의
+				for( var i=0; i<list.length; i++ ) {
+					var str = list[i];		// str 변수 : list 배열 안에 있는 하나의 json 데이터
+					$("tbody").append(
+						"<tr>"+
+							"<td>"+str.addr1+"</td>"+
+							"<td>"+str.areacode+"</td>"+
+							"<td>"+str.sigungucode+"</td>"+
+							"<td>"+str.firstimage2+"</td>"+
+							"<td>"+str.readcount+"</td>"+
+							"<td>"+str.title+"</td>"+
+							// db에 값들을 ';'로 나눠서 넘겨줌
+							"<input type='hidden' name='list' value='"+
+							str.addr1+";"+str.areacode+";"+str.sigungucode+";"
+							+str.firstimage2+";"+str.readcount+";"+str.title+"'>"+
+						"</tr>"
+					);
+				}
+			}
+		});
+	});
+}
+  ```
+                                     
+  > AddTourlistAction.java : 📌 [코드 확인]()
+  ```java
+  package com.happy.app.action;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.happy.app.action.Action;
+import com.happy.app.action.ActionForward;
+import com.happy.app.dao.TourlistDAO;
+import com.happy.app.dto.TourlistDTO;
+
+public class AddTourlistAction implements Action {
+
+	@Override
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp) {
+		System.out.println("AddTourlistAction 도착");
+		ActionForward forward = new ActionForward();
+		TourlistDAO tdao = new TourlistDAO();
+		
+//		tdao.delete();
+		String[] Tourlist = req.getParameterValues("list");
+		
+		List<TourlistDTO> tdtos = new ArrayList<TourlistDTO>();
+		
+		for( int i = 0; i < Tourlist.length; i++ ) {
+			String[] tmp = Tourlist[i].split(";");
+			System.out.println(Arrays.toString(tmp));
+			
+			TourlistDTO tdto = new TourlistDTO(tmp[0], Integer.parseInt(tmp[1]), 
+                                                    Integer.parseInt(tmp[2]), tmp[3], Integer.parseInt(tmp[4]), tmp[5]);
+			
+			tdtos.add(tdto);
+		}
+		
+		tdao.AddTourlist(tdtos);
+		
+		forward.setRedirect(true);
+		forward.setPath( req.getContextPath() + "/tour/tourlist.jsp");
+		
+		return forward;
+	}
+}
+  ```
+</div>
+</details>
+
+### 6-6. 게시판 페이지
+<details>
+<summary><b>핵심 기능</b></summary>
+<div markdown="1">
+  
+  <br>
+  
+  ![image](https://user-images.githubusercontent.com/100775231/196513454-6c6fbbf5-37f8-4afe-9eb6-a003cebbfdf4.png)
+  
+  - 여행 키워드 클릭 및 여행지 검색 시, 동적으로 변하는 검색 기능 구현
+</div>
+</details>
+
+<br>
+
+## 7. 트러블 슈팅
 ### 5.1. 컨텐츠 필터와 페이징 처리 문제
 - 저는 이 서비스가 페이스북이나 인스타그램 처럼 가볍게, 자주 사용되길 바라는 마음으로 개발했습니다.  
 때문에 페이징 처리도 무한 스크롤을 적용했습니다.
@@ -427,6 +579,15 @@ public Page<Post> findAllByTagName(String tagName, Pageable pageable) {
     
 </br>
 
-## 6. 회고 / 느낀점
->프로젝트 개발 회고 글: https://zuminternet.github.io/ZUM-Pilot-integer/
-)
+## 8. 프로젝트 후기
+ 웹 개발을 배우면서 MVC 패턴을 어려워했다. 1 Model, 2 Model 둘 다 공부하면서 전혀 감을 잡지 못하고 있었다. 이번 프로젝트에서 활용된 것은 MVC 2 Model이었다. 프로젝트를 진행하면서 조원들의 도움도 정말 많이 받았고 수많은 오류와 수정 그리고 반복적으로 보게 되는 형식들 덕분에 MVC 2 Model에 대해서 차츰 이해하고 흐름까지 볼 수 있게 되었다. 그리고 아직 부족한 부분은 계속해서 공부하면서 채워나갈 것이다.
+
+  <br>
+  
+ 부족한 실력이지만 정말 열심히 했다. 프로젝트가 끝나고 잠시 공허함이 올 정도로 최선을 다했다. 무엇보다 팀원들과 갈등 없이 행복하게 프로젝트를 진행했던 것이 너무나도 좋은 기억으로 남았다. 파트를 나눠 프로젝트를 진행하였지만 서로 어려운 부분이 있으면 도와주며 해결해나갔다.
+
+ 그거 아는가? 혼자 해냈을 때보다 같이 해냈을 때가 더 짜릿하다는 것을! 성취감! 성취감은 나를 움직이며 그 성취감은 '우리'에서 온다. 이번 프로젝트 결과도 과정도 모두 만족스럽고 성공적이었다.
+  
+<br>
+  
+> 프로젝트 개발 관련 글: [우리는 해피하조 - 웹 페이지 개발 프로젝트](https://velog.io/@jack_whiteblack/%EC%9A%B0%EB%A6%AC%EB%8A%94-%ED%95%B4%ED%94%BC%ED%95%98%EC%A1%B0-%EC%9B%B9-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B0%9C%EB%B0%9C-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8)
