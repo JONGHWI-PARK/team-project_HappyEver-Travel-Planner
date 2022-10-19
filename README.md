@@ -165,8 +165,8 @@
   > ### 한국 관광 공사 API를 이용해 받아온 JSON 형식의 데이터를 테이블에 INSERT 하기
   > - API를 통해 JSON 형식으로 받아온 데이터 중 필요한 정보를 추려 LIST 객체에 담아 Parameter로 넘긴다.
   > - 넘어온 데이터를 DB 테이블과 동일한 순서와 타입으로 세팅해 INSERT 한다. (MVC2 방법 사용)<br><br>
-  > - tourist.js : 📌 [코드 확인]()
-  > - AddTourlistAction.java : 📌 [코드 확인]()
+  > - tourist.js : 📌 [코드 확인](https://github.com/JONGHWI-PARK/team-project_HappyEver-Travel-Planner/blob/master/WebContent/tour/tourlist.js)
+  > - AddTourlistAction.java : 📌 [코드 확인](https://github.com/JONGHWI-PARK/team-project_HappyEver-Travel-Planner/blob/master/src/com/happy/app/action/AddTourlistAction.java)
 </div>
 </details>
 
