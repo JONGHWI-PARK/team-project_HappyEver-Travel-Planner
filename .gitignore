@@ -1,0 +1,8 @@
+/build/
+.tern-project
+.metadata
+.settings/
+bin/
+.classpath
+.project
+.recommenders
